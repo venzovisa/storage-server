@@ -1,0 +1,33 @@
+{
+  "name": "storage-server",
+  "version": "1.0.0",
+  "description": "Storage Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "author": "Venzo",
+  "license": "MIT",
+  "dependencies": {
+    "@hapi/joi": "^16.1.8",
+    "bcrypt": "^3.0.7",
+    "body-parser": "^1.18.3",
+    "co": "^4.6.0",
+    "config": "^3.2.4",
+    "debug": "^4.1.1",
+    "express": "^4.16.4",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongodb": "^3.1.13",
+    "mongoose": "^5.8.3",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.1",
+    "url-parse": "^1.4.4",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
+  }
+}
