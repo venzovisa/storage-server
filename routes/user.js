@@ -21,11 +21,11 @@ route_user.post('/register', jsonParser, async (req, res) => {
 
     try {
         let user = await User.findOne({email: req.body.email});
-        if(user) return res.status(400).send('User already registered');
+        if (user) return res.status(400).send('User already registered');
         user = new User(_.pick(req.body, ['name', 'email', 'password']));
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(user.password, salt);
-        const result = await user.save();
+        await user.save();
         const token = user.generateAuthToken();
         res
             .header('Auth-Token', token)
@@ -62,7 +62,7 @@ route_user.post('/user', jsonParser, async (req, res) => {
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(req.body.passwordNew, salt);
-        const result = await user.save();
+        await user.save();
         const token = user.generateAuthToken();
         res
             .header('Auth-Token', token)
