@@ -20,6 +20,10 @@ const Product = mongoose.model(process.env.db_store_products, new Schema({
         min: 1,
         max: Number.MAX_SAFE_INTEGER
     }
-}));
+},
+    {
+        collection: process.env.db_store_products
+    }
+));
 
 module.exports = Product;

@@ -24,7 +24,7 @@ process.on('uncaughtException', (ex) =>{
     process.exit(1);
 });
 
-winston.handleExceptions(new winston.transports.File({filename: 'uncaughtExceptions.log'}));
+winston.exceptions.handle(new winston.transports.File({filename: 'uncaughtExceptions.log'}));
 
 process.on('unhandledRejection', (ex) => {
     console.log('Unhandled rejection');
@@ -36,9 +36,24 @@ if(!config.get('jwtPrivateKey')) {
     process.exit(1);
 }
 
-mongoose.connect(`${process.env.db_url}/${process.env.db_store}`, { useFindAndModify: false})
+const mongoOptions = {
+    useFindAndModify: false,
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    autoIndex: false,
+    autoCreate: true,
+}
+
+mongoose.connect(`${process.env.db_url}/${process.env.db_store}`, mongoOptions)
     .then(() =>  console.log('Mongoose connected'))
     .catch(err => console.error('Error while connecting DB: ', err));
+
+const port = process.env.PORT || 3000;
+//const port = 3000;
+app.listen(port, () => {
+    console.log(`App running on port ${port}`);
+});
+
 // JSON File Read/Write
 // let movies;
 //
@@ -74,10 +89,6 @@ mongoose.connect(`${process.env.db_url}/${process.env.db_store}`, { useFindAndMo
 //
 // });
 
-//const port = process.env.PORT || 3000;
-const port = 3000;
-app.listen(port, () => {
-    console.log(`App running on port ${port}`);
-});
+
 
 

@@ -33,6 +33,10 @@ const Order = mongoose.model(process.env.db_store_orders, new Schema({
         type: mongoose.Schema.Types.ObjectID,
         ref: process.env.db_store_products
     }
-}));
+},
+    {
+        collection: process.env.db_store_orders
+    }
+));
 
 module.exports = Order;
