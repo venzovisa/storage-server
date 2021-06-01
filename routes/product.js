@@ -25,7 +25,7 @@ route_product.post('/add_product', jsonParser , async (req, res) =>{
     const data = req.body;
     const product = new Product(data);
     const result = await product.save();
-    console.log('Added product: ', result);
+    //console.log('Added product: ', result);
     res.header('Content-Type', 'application/json');
     res.send(JSON.stringify(result));
 });
@@ -41,7 +41,7 @@ route_product.post('/update_product/:id', jsonParser , async (req, res) =>{
             "quantity": data.quantity,
         });
     const result = await product.save();
-    console.log('Updated product: ', result);
+    //console.log('Updated product: ', result);
     res.header('Content-Type', 'application/json');
     res.send(JSON.stringify(result));
 });

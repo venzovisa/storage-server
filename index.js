@@ -4,7 +4,7 @@ require('./config');
 const config = require('config');
 const error = require('./middleware/error');
 const winston = require('winston');
-
+require('./middleware/prod.js')(app);
 // Request logger
 app.use(require('morgan')('tiny'));
 // Skip cross origin browser restriction
@@ -44,7 +44,7 @@ const mongoOptions = {
     autoCreate: true,
 }
 
-mongoose.connect(`${process.env.db_url}/${process.env.db_store}`, mongoOptions)
+mongoose.connect(`${process.env.db_url}`, mongoOptions)
     .then(() =>  console.log('Mongoose connected'))
     .catch(err => console.error('Error while connecting DB: ', err));
 

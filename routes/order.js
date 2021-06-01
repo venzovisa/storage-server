@@ -31,7 +31,7 @@ route_order.get('/order/:id', async (req, res) => {
         .populate('products', 'title quantity -_id')
         .select('products active -_id');
 
-    console.log(order);
+    //console.log(order);
     res.end();
 });
 
