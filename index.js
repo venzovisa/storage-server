@@ -8,7 +8,7 @@ require('./middleware/prod.js')(app);
 // Request logger
 app.use(require('morgan')('tiny'));
 // Skip cross origin browser restriction
-//app.use(require('cors')());
+app.use(require('cors')());
 app.use(require('./routes.js'));
 app.use(error);
 
