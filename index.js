@@ -44,8 +44,11 @@ const mongoOptions = {
     autoCreate: true,
 }
 
-mongoose.connect(`${process.env.db_url}`, mongoOptions)
-    .then(() =>  console.log('Mongoose connected'))
+mongoose.connect(`${config.get('db_url')}`, mongoOptions)
+    .then(() =>  {
+		if(process.env.NODE_ENV === "production") console.log('Connected to production database');
+		else console.log('Connected to development database');
+	})
     .catch(err => console.error('Error while connecting DB: ', err));
 
 const port = process.env.PORT || 3000;
