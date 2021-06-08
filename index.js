@@ -44,7 +44,7 @@ const mongoOptions = {
     autoCreate: true,
 }
 
-mongoose.connect(`${process.env.DB_URL}`, mongoOptions)
+mongoose.connect(`${process.env.db_url}`, mongoOptions)
     .then(() =>  console.log('Mongoose connected'))
     .catch(err => console.error('Error while connecting DB: ', err));
 
