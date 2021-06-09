@@ -1,9 +1,9 @@
 const express = require('express');
+const app = express();
+app.use(express.json());
 const route_chat = express.Router();
 const debug = require('debug')('*');
 const Chat = require('../models/chat');
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const auth = require('../middleware/auth');
 //const admin = require('../middleware/admin');
 const asyncMiddleware = require('../middleware/async');
@@ -19,7 +19,7 @@ route_chat.get('/chat', async (req, res) => {
     res.end();
 });
 
-route_chat.post('/chat', jsonParser, async (req, res) => {
+route_chat.post('/chat', async (req, res) => {
     const data = req.body;
     //console.log(data);
 

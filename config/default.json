@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "jwtPrivateKey",
-  "db_url": "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false"
+  "db_url": "mongodb://127.0.0.1:27017/?compressors=zlib&readPreference=primary&gssapiServiceName=mongodb&appname=MongoDB%20Compass&ssl=false"
 }

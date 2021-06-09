@@ -11,11 +11,8 @@ app.use(require('morgan')('tiny'));
 app.use(require('cors')());
 app.use(require('./routes.js'));
 app.use(error);
+app.use(express.json());
 
-// For parsing incoming POST data
-//const fs = require('fs');
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 //const urlParse = require('url');
 const mongoose = require('mongoose');
 
@@ -51,47 +48,10 @@ mongoose.connect(`${config.get('db_url')}`, mongoOptions)
 	})
     .catch(err => console.error('Error while connecting DB: ', err));
 
-const port = process.env.PORT || 3000;
-//const port = 3000;
+const port = process.env.PORT || 3001;
+
 app.listen(port, () => {
     console.log(`App running on port ${port}`);
 });
-
-// JSON File Read/Write
-// let movies;
-//
-// fs.open('data.json', 'r', (err, fd) => {
-//     if (err) throw err;
-//
-//     fs.readFile('data.json', 'utf8',(err, data) => {
-//         if (err) throw err;
-//         movies = JSON.parse(data);
-//         const isMovie = movies.data.movies.find(item =>
-//                 item.title.toLowerCase() === body.title.toLowerCase()
-//         );
-//         movies.data.movies.push(body);
-//         movies = JSON.stringify(movies);
-//
-//         if (!isMovie){
-//             fs.writeFile('data.json', movies, 'utf8', (err) => {
-//                 if (err) throw err;
-//                 console.log('The new movie has been added!');
-//                 res.sendStatus(201);
-//             });
-//         }
-//         else {
-//             console.log('The movie already exist!');
-//             res.sendStatus(304);
-//         }
-//
-//     });
-//
-//     fs.close(fd, (err) => {
-//         if (err) throw err;
-//     });
-//
-// });
-
-
 
 

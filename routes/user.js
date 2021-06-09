@@ -1,8 +1,8 @@
 const express = require('express');
+const app = express();
+app.use(express.json());
 const route_user = express.Router();
 const {User, validateUser} = require('../models/user');
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -15,7 +15,7 @@ route_user.get('/me', auth, async(req, res) => {
    res.send(user);
 });
 
-route_user.post('/register', jsonParser, async (req, res) => {
+route_user.post('/register', async (req, res) => {
    const { error } = validateUser(req.body);
    if (error) return res.status(400).send(error.details[0].message);
 
@@ -38,7 +38,7 @@ route_user.post('/register', jsonParser, async (req, res) => {
     }
 });
 
-route_user.post('/user', jsonParser, async (req, res) => {
+route_user.post('/user', async (req, res) => {
     const token = req.header('Auth-Token');
     if (!token) return (res.status(401).send('Access token required'));
     let email;

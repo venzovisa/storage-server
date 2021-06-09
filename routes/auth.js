@@ -1,8 +1,8 @@
 const express = require('express');
+const app = express();
+app.use(express.json());
 const route_auth = express.Router();
 const {User} = require('../models/user');
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const Joi = require('@hapi/joi');
@@ -17,7 +17,7 @@ function validate(user){
     return schema.validate(user);
 }
 
-route_auth.post('/auth', jsonParser, async (req, res) => {
+route_auth.post('/auth', async (req, res) => {
     try {
         const { error } = validate(req.body);
         if (error) return res.status(400).send(error.details[0].message);
@@ -39,7 +39,7 @@ route_auth.post('/auth', jsonParser, async (req, res) => {
     }
 });
 
-route_auth.get('/isLogged', jsonParser, (req, res) => {
+route_auth.get('/isLogged', (req, res) => {
     const token = req.header('Auth-Token');
     if (!token) return (res.status(401).send('Access token required'));
     try {

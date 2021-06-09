@@ -1,13 +1,13 @@
 const express = require('express');
+const app = express();
+app.use(express.json());
 const route_order = express.Router();
 const debug = require('debug')('*');
 const Order = require('../models/order');
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const auth = require('../middleware/auth');
 require('express-async-errors');
 
-route_order.post('/add_order', jsonParser,async (req, res) => {
+route_order.post('/add_order',async (req, res) => {
     res.header('Content-Type', 'application/json');
     if (!req.body) return res.sendStatus(400);
     const order = new Order({
@@ -45,7 +45,7 @@ route_order.get('/orders', auth,(req, res) => {
 
 });
 
-route_order.post('/update_order_status' , jsonParser, async (req, res) =>{
+route_order.post('/update_order_status' , async (req, res) =>{
     res.header('Content-Type', 'application/json');
     if (!req.body) return res.sendStatus(400);
     const _id = req.body._id;

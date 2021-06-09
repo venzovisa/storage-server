@@ -1,9 +1,9 @@
 const express = require('express');
+const app = express();
+app.use(express.json());
 const route_product = express.Router();
 const debug = require('debug')('*');
 const Product = require('../models/product');
-const bodyParser = require('body-parser');
-const jsonParser = bodyParser.json();
 const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const asyncMiddleware = require('../middleware/async');
@@ -21,7 +21,7 @@ route_product.get('/products', asyncMiddleware(async (req, res) => {
     res.send(result);
 }));
 
-route_product.post('/add_product', jsonParser , async (req, res) =>{
+route_product.post('/add_product' , async (req, res) =>{
     const data = req.body;
     const product = new Product(data);
     const result = await product.save();
@@ -30,7 +30,7 @@ route_product.post('/add_product', jsonParser , async (req, res) =>{
     res.send(JSON.stringify(result));
 });
 
-route_product.post('/update_product/:id', jsonParser , async (req, res) =>{
+route_product.post('/update_product/:id' , async (req, res) =>{
     const data = req.body;
     const product = await Product.findById(req.params.id);
     if (!product) return;
