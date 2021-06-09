@@ -18,7 +18,8 @@ route_product.get('/get_product/:id', async (req, res) => {
 route_product.get('/products', asyncMiddleware(async (req, res) => {
     const result = await Product.find({});
     debug('Result: ', result);
-    res.send(result);
+    res.header('Content-Type', 'application/json');
+    res.send(JSON.stringify(result));
 }));
 
 route_product.post('/add_product' , async (req, res) =>{

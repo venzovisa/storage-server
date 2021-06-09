@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+const jsonParser = express.json();
 const route_auth = express.Router();
 const {User} = require('../models/user');
 const _ = require('lodash');
@@ -17,7 +18,7 @@ function validate(user){
     return schema.validate(user);
 }
 
-route_auth.post('/auth', async (req, res) => {
+route_auth.post('/auth', jsonParser, async (req, res) => {
     try {
         const { error } = validate(req.body);
         if (error) return res.status(400).send(error.details[0].message);
