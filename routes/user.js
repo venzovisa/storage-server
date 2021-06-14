@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+const jsonParser = express.json();
 const route_user = express.Router();
 const {User, validateUser} = require('../models/user');
 const _ = require('lodash');
@@ -15,10 +16,9 @@ route_user.get('/me', auth, async(req, res) => {
    res.send(user);
 });
 
-route_user.post('/register', async (req, res) => {
+route_user.post('/register', jsonParser, async (req, res) => {
    const { error } = validateUser(req.body);
    if (error) return res.status(400).send(error.details[0].message);
-
     try {
         let user = await User.findOne({email: req.body.email});
         if (user) return res.status(400).send('User already registered');
@@ -38,7 +38,7 @@ route_user.post('/register', async (req, res) => {
     }
 });
 
-route_user.post('/user', async (req, res) => {
+route_user.post('/user', jsonParser, async (req, res) => {
     const token = req.header('Auth-Token');
     if (!token) return (res.status(401).send('Access token required'));
     let email;

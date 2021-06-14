@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+const jsonParser = express.json();
 const route_product = express.Router();
 const debug = require('debug')('*');
 const Product = require('../models/product');
@@ -10,28 +11,29 @@ const asyncMiddleware = require('../middleware/async');
 require('express-async-errors');
 
 route_product.get('/get_product/:id', async (req, res) => {
-        const result = await Product.findById(req.params.id);
-        debug('Result: ', result);
-        res.send(result);
+    const result = await Product.findById(req.params.id);
+    debug('Result: ', result);
+    res.header('Content-Type', 'application/json');
+    res.send(JSON.stringify(result, null, 2));
 });
 
 route_product.get('/products', asyncMiddleware(async (req, res) => {
     const result = await Product.find({});
     debug('Result: ', result);
     res.header('Content-Type', 'application/json');
-    res.send(JSON.stringify(result));
+    res.send(JSON.stringify(result, null, 2));
 }));
 
-route_product.post('/add_product' , async (req, res) =>{
+route_product.post('/add_product', jsonParser, async (req, res) =>{
     const data = req.body;
     const product = new Product(data);
     const result = await product.save();
     //console.log('Added product: ', result);
     res.header('Content-Type', 'application/json');
-    res.send(JSON.stringify(result));
+    res.send(JSON.stringify(result, null, 2));
 });
 
-route_product.post('/update_product/:id' , async (req, res) =>{
+route_product.post('/update_product/:id', jsonParser, async (req, res) =>{
     const data = req.body;
     const product = await Product.findById(req.params.id);
     if (!product) return;

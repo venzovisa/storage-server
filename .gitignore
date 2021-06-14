@@ -1,3 +1,4 @@
 node_modules
 uncaughtExceptions.log
 error.log
+config/default.json

@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 app.use(express.json());
+const jsonParser = express.json();
 const route_chat = express.Router();
 const debug = require('debug')('*');
 const Chat = require('../models/chat');
@@ -19,7 +20,7 @@ route_chat.get('/chat', async (req, res) => {
     res.end();
 });
 
-route_chat.post('/chat', async (req, res) => {
+route_chat.post('/chat', jsonParser, async (req, res) => {
     const data = req.body;
     //console.log(data);
 
