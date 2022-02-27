@@ -29,7 +29,7 @@
     "mongoose": "^5.12.12",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.1",
-    "url-parse": "^1.5.1",
+    "url-parse": "^1.5.8",
     "winston": "^3.2.1"
   },
   "devDependencies": {}
